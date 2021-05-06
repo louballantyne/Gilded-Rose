@@ -1,5 +1,4 @@
 require 'gilded_rose'
-require 'helper_methods'
 
 describe GildedRose do
 
@@ -24,10 +23,15 @@ describe GildedRose do
     end
   end
   context 'quality of brie increases as it ages' do
-    it "increases in quality by 1 each day" do
+    it "increases in quality by 1 each day until the sell-by date" do
       brie = [Item.new(name="Aged Brie", sell_in=10, quality=20)]
       shop = GildedRose.new(brie)
       expect{ shop.update_quality }.to change { brie[0].quality }.by 1
+    end
+    it "increases in quality by 2 each day after the sell-by date" do
+      brie = [Item.new(name="Aged Brie", sell_in=0, quality=20)]
+      shop = GildedRose.new(brie)
+      expect{ shop.update_quality }.to change { brie[0].quality }.by 2
     end
   end
   context 'quality of sulfuras does not change as it ages' do
@@ -83,10 +87,6 @@ describe GildedRose do
     end
   end
 end
-# The Quality of an item is never negative
-# The Quality of an item is never more than 50
-# “Sulfuras”, being a legendary item, never has to be sold
-
 
 
 # example output:

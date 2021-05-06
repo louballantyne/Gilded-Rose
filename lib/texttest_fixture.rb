@@ -9,7 +9,7 @@ items = [
   Item.new(name="Elixir of the Mongoose", sell_in=5, quality=7),
   Item.new(name="Sulfuras, Hand of Ragnaros", sell_in=0, quality=80),
   Item.new(name="Sulfuras, Hand of Ragnaros", sell_in=-1, quality=80),
-  Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=15, quality=20),
+  Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=12, quality=20),
   Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=10, quality=49),
   Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=5, quality=49),
   # This Conjured item does not work properly yet
