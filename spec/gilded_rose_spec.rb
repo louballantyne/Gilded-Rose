@@ -86,6 +86,19 @@ describe GildedRose do
       expect(vest[0].quality).to eq(0)
     end
   end
+  context 'conjured items degrade in quality twice as quickly as other items' do
+    it 'decreases in quality by 2 in a day, up until the sell-by date' do
+      cake = [Item.new(name="Conjured Mana Cake", sell_in=10, quality=10)]
+      shop = GildedRose.new(cake)
+      expect{ shop.update_quality }.to change { cake[0].quality }.by -2
+    end
+    it 'decreases in quality by 4 in a day, after the sell-by date' do
+      cake = [Item.new(name="Conjured Mana Cake", sell_in=2, quality=10)]
+      shop = GildedRose.new(cake)
+      2.times { shop.update_quality }
+      expect{ shop.update_quality }.to change { cake[0].quality }.by -4
+    end
+  end
 end
 
 

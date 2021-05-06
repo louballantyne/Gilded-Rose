@@ -24,6 +24,10 @@ class GildedRose
     item.sell_in >= 0 ? item.quality -=1 : item.quality -= 2
   end
 
+  def conjured_mana(item)
+    item.sell_in >= 0 ? item.quality -=2 : item.quality -= 4
+  end
+
   def update_quality
     @items.each do |item|
       next if item.name == "Sulfuras, Hand of Ragnaros"
@@ -32,6 +36,7 @@ class GildedRose
       case item.name
       when "Aged Brie" then aged_brie(item)
       when "Backstage passes to a TAFKAL80ETC concert" then backstage_pass(item)
+      when "Conjured Mana Cake" then conjured_mana(item)
       else other_objects(item)
       end
     end
