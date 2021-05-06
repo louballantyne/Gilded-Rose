@@ -3,6 +3,22 @@ class GildedRose
     @items = items
   end
 
+  def update_quality
+    @items.each do |item|
+      next if item.name == "Sulfuras, Hand of Ragnaros"
+
+      item.sell_in -= 1
+      next if item.quality > 50 || item.quality <= 0
+
+      case item.name
+      when "Aged Brie" then aged_brie(item)
+      when "Backstage passes to a TAFKAL80ETC concert" then backstage_pass(item)
+      when "Conjured Mana Cake" then conjured_mana(item)
+      else other_objects(item)
+      end
+    end
+  end
+
   def aged_brie(item)
     item.quality = if item.sell_in >= 0
                      item.quality + 1
@@ -33,22 +49,6 @@ class GildedRose
 
   def conjured_mana(item)
     2.times { other_objects(item) }
-  end
-
-  def update_quality
-    @items.each do |item|
-      next if item.name == "Sulfuras, Hand of Ragnaros"
-
-      item.sell_in -= 1
-      next if item.quality > 50 || item.quality <= 0
-
-      case item.name
-      when "Aged Brie" then aged_brie(item)
-      when "Backstage passes to a TAFKAL80ETC concert" then backstage_pass(item)
-      when "Conjured Mana Cake" then conjured_mana(item)
-      else other_objects(item)
-      end
-    end
   end
 end
 
