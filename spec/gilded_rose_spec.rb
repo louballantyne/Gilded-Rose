@@ -36,6 +36,14 @@ context 'quality of sulfuras does not change as it ages' do
     expect{ shop.update_quality }.to change { sulfuras[0].quality }.by 0
   end
 end
+context 'sulfuras does not have to be sold' do
+  it "quality does not decrease past sell-by date" do
+    sulfuras = [Item.new(name="Sulfuras, Hand of Ragnaros", sell_in=10, quality=20)]
+    shop = GildedRose.new(sulfuras)
+    15.times { shop.update_quality }
+    expect{ shop.update_quality }.to change { sulfuras[0].quality }.by 0
+  end
+end
 context 'quality of backstage pass increases as it approaches (but does not surpass) sell-by date' do
   it "quality increases by 1 after 1 day, if there are > 10 days to go (not past sell-by date)" do
     pass = [Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=11, quality=20)]
@@ -58,20 +66,17 @@ context 'quality of backstage pass increases as it approaches (but does not surp
     3.times { shop.update_quality }
     expect( pass[0].quality).to eq(0)
   end
-
+context
+# quality is never negative
+# quality never exceeds 50
+# sulfuras does not have to be sold
 
 end
 
 
-# Once the sell by date has passed, Quality degrades twice as fast (except sulfuras, aged brie, backstage pass)
-
 # The Quality of an item is never negative
-# “Aged Brie” actually increases in Quality the older it gets
 # The Quality of an item is never more than 50
-# “Sulfuras”, being a legendary item, never has to be sold or decreases in Quality
-# “Backstage passes”, like aged brie, increases in Quality as it’s SellIn value approaches;
-#     Quality increases by 2 when there are 10 days or less and
-#     by 3 when there are 5 days or less but Quality drops to 0 after the concert
+# “Sulfuras”, being a legendary item, never has to be sold
   end
 
 end
