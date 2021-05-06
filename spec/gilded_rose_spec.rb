@@ -36,6 +36,31 @@ context 'quality of sulfuras does not change as it ages' do
     expect{ shop.update_quality }.to change { sulfuras[0].quality }.by 0
   end
 end
+context 'quality of backstage pass increases as it approaches (but does not surpass) sell-by date' do
+  it "quality increases by 1 after 1 day, if there are > 10 days to go (not past sell-by date)" do
+    pass = [Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=11, quality=20)]
+    shop = GildedRose.new(pass)
+    expect{ shop.update_quality }.to change { pass[0].quality }.by 1
+  end
+  it "quality increases by 2 after 1 day, if there are 10-6 days to go (not past sell-by date)" do
+    pass = [Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=10, quality=20)]
+    shop = GildedRose.new(pass)
+    expect{ shop.update_quality }.to change { pass[0].quality }.by 2
+  end
+  it "quality increases by 3 after 1 day, if there are < 6 days to go (not past sell-by date)" do
+    pass = [Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=5, quality=20)]
+    shop = GildedRose.new(pass)
+    expect{ shop.update_quality }.to change { pass[0].quality }.by 3
+  end
+  it "quality is 0 past sell-by date" do
+    pass = [Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=2, quality=20)]
+    shop = GildedRose.new(pass)
+    3.times { shop.update_quality }
+    expect( pass[0].quality).to eq(0)
+  end
+
+
+end
 
 
 # Once the sell by date has passed, Quality degrades twice as fast (except sulfuras, aged brie, backstage pass)
