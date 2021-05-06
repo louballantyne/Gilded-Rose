@@ -9,20 +9,27 @@ describe GildedRose do
       GildedRose.new(items).update_quality
       expect(items[0].name).to eq "foo"
     end
-# Once the sell by date has passed, Quality degrades twice as fast (except sulfuras, aged brie, backstage pass)
 context 'quality of most items degrades twice as fast once the sell-by date has passed' do
   it "dexterity vest quality that starts at 10 is 9 after 1 day, if sell-by date has not passed" do
     vest = [Item.new(name="+5 Dexterity Vest", sell_in=10, quality=10)]
     shop = GildedRose.new(vest)
     expect{ shop.update_quality }.to change { vest[0].quality }.by -1
   end
-  it "dexterity vest quality changes by 2 after 1 day, if sell-by date has passed" do
+  it "dexterity vest quality decreases by 2 after 1 day, if sell-by date has passed" do
     vest = [Item.new(name="+5 Dexterity Vest", sell_in=10, quality=20)]
     shop = GildedRose.new(vest)
     10.times { shop.update_quality }
     expect{ shop.update_quality }.to change { vest[0].quality }.by -2
   end
 end
+context 'quality of brie increases as it ages' do
+  it "increases in quality by 1 each day" do
+    brie = [Item.new(name="Aged Brie", sell_in=10, quality=20)]
+    shop = GildedRose.new(brie)
+    expect{ shop.update_quality }.to change { brie[0].quality }.by 1
+  end
+end
+# Once the sell by date has passed, Quality degrades twice as fast (except sulfuras, aged brie, backstage pass)
 
 # The Quality of an item is never negative
 # “Aged Brie” actually increases in Quality the older it gets
