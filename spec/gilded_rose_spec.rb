@@ -75,6 +75,12 @@ describe GildedRose do
       35.times { shop.update_quality }
       expect{ shop.update_quality }.to change { brie[0].quality }.by 0
     end
+    it "does not decrease quality below 0" do
+      vest = [Item.new(name="+5 Dexterity Vest", sell_in=10, quality=10)]
+      shop = GildedRose.new(vest)
+      20.times { shop.update_quality }
+      expect(vest[0].quality).to eq(0)
+    end
   end
 end
 # The Quality of an item is never negative
