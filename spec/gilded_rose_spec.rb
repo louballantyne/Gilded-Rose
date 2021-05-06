@@ -29,6 +29,15 @@ context 'quality of brie increases as it ages' do
     expect{ shop.update_quality }.to change { brie[0].quality }.by 1
   end
 end
+context 'quality of sulfuras does not change as it ages' do
+  it "quality does not change after 1 day" do
+    sulfuras = [Item.new(name="Sulfuras, Hand of Ragnaros", sell_in=10, quality=20)]
+    shop = GildedRose.new(sulfuras)
+    expect{ shop.update_quality }.to change { sulfuras[0].quality }.by 0
+  end
+end
+
+
 # Once the sell by date has passed, Quality degrades twice as fast (except sulfuras, aged brie, backstage pass)
 
 # The Quality of an item is never negative
