@@ -32,11 +32,7 @@ class GildedRose
   end
 
   def conjured_mana(item)
-    item.quality = if item.sell_in >= 0
-                     item.quality - 2
-                   else
-                     item.quality - 4
-                   end
+    2.times { other_objects(item) }
   end
 
   def update_quality
