@@ -1,0 +1,11 @@
+require: rubocop-rspec
+
+inherit_gem:
+  relaxed-rubocop: .rubocop.yml
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - 'lib/texttest_fixture.rb'
