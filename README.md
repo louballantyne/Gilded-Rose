@@ -46,17 +46,14 @@ However, do not alter the Item class or Items property as those belong to the go
 
 ## Usage
 
-irb -r './lib/texttest_fixture.rb'
+irb -r './lib/gilded_rose.rb'
 
-![Screenshot](Screenshot.png)
-
-Simplecov reports 100% test coverage.
-
-Feel free to change variables within texttest_fixture to obtain different results. For example:
+![Screenshot](Screenshot_.png)
 
 ```ruby
 items = [Item.new(name="A pretty parrot", sell_in=10, quality=20)] # creates an array containing a new object called parrot
 shop = GildedRose.new(items)
+shop.print_items # prints the way items change over 1 day
 shop.print_items(7) # prints the way items change over 7 days
 shop.update_quality # moves all items on in quality and sell-by date, by one day
 ```
@@ -67,4 +64,12 @@ I began this project by testing. I created tests for all of the cases described 
 
 Having created tests for the pre-existing code, I deleted the 'update_quality' method and started again. I began by determining how many 'cases' there were. In fact, there were really only 4, so I decided to utilise a switch statement, in combination with a few other checks for special conditions. I created separate methods for each of the cases, except for "Sulfuras". For "Sulfuras", I just used 'next' because it did approach sell-by date or degrade in quality.
 
-In addition to these special cases, I needed to ensure that item quality did not exceed 50, or become negative. I initially
+In addition to these special cases, I needed to ensure that item quality did not exceed 50, or become negative. I initially put the check for a quality approaching the lower limit at the beginning, but realised that this meant that "Aged Brie" that started at 0 did not increase in quality. I later moved it to its own method, called from the other methods for specific items, for ease of change.
+
+I originally wrote the backstage pass method as an 'if' statement. However, I felt that it was clearer with a switch statement, and refactored it accordingly. This method sets the item quality to 50 at the end, if it has exceeded this.
+
+The 'aged_brie' and 'other_objects' methods were originally written using the ternary operator, but on the advice of rubocop refactored so that there was only one assignment.
+
+Having successfully passed all of the tests, I then created the code for the new item, "Conjured Mana Cake". As this was just going to deteriorate twice as quickly as a normal item, I gave it its own method, but simply called the method used for normal items twice within this. I felt that this would make it simple to refactor.
+
+Finally, for ease-of-use, I added a print_items method, with an optional 'days' argument, in combination with an instance parameter '@days'. This enabled the user to persist how many days that instance of the shop had been around for, and to print the list of items in a manner that displayed this.
