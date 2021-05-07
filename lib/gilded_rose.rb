@@ -1,6 +1,7 @@
 class GildedRose
 
   ITEM_QUALITY_MAX = 50
+  ITEM_QUALITY_MIN = 0
 
   def initialize(items)
     @items = items
@@ -46,7 +47,7 @@ class GildedRose
   end
 
   def item_quality_limit?(item)
-    item.quality <= 0
+    item.quality <= ITEM_QUALITY_MIN
   end
 
   def other_objects(item)
