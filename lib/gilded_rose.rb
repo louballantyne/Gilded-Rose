@@ -34,11 +34,12 @@ class GildedRose
 
   def backstage_pass(item)
     return if item_quality_limit?(item)
-    if item.sell_in >= 10
+    case item.sell_in
+    when 10..Float::INFINITY
       item.quality += 1
-    elsif item.sell_in >= 6
+    when 6..9
       item.quality += 2
-    elsif item.sell_in >= 0
+    when 0..5
       item.quality += 3
     else
       item.quality = 0
