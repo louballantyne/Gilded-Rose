@@ -62,7 +62,7 @@ shop.update_quality # moves all items on in quality and sell-by date, by one day
 
 I began this project by testing. I created tests for all of the cases described in the information at the top of the README. I ensured that I understood the code by running the pre-given file, texttest_fixture.rb.
 
-Having created tests for the pre-existing code, I deleted the 'update_quality' method and started again. I began by determining how many 'cases' there were. In fact, there were really only 4, so I decided to utilise a switch statement, in combination with a few other checks for special conditions. I created separate methods for each of the cases, except for "Sulfuras". For "Sulfuras", I just used 'next' because it did approach sell-by date or degrade in quality.
+Having created tests for the pre-existing code, I deleted the 'update_quality' method and started again. I began by determining how many 'cases' there were. In fact, there were really only 4, so I decided to utilise a switch statement, in combination with a few other checks for special conditions. I created separate methods for each of the cases, except for "Sulfuras". For "Sulfuras", I just used 'next' because it did not approach sell-by date or degrade in quality.
 
 In addition to these special cases, I needed to ensure that item quality did not exceed 50, or become negative. I initially put the check for a quality approaching the lower limit at the beginning, but realised that this meant that "Aged Brie" that started at 0 did not increase in quality. I later moved it to its own method, called from the other methods for specific items, for ease of change.
 
