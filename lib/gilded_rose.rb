@@ -8,7 +8,7 @@ class GildedRose
       next if item.name == "Sulfuras, Hand of Ragnaros"
 
       item.sell_in -= 1
-      next if item.quality > 50 || item.quality <= 0
+      next if item.quality >= 50 || item.quality <= 0
 
       case item.name
       when "Aged Brie" then aged_brie(item)

@@ -10,37 +10,33 @@ describe GildedRose do
   end
 
   context 'when the sell-by date has passed, quality of most items degrades twice as fast' do
+    vest = [Item.new("+5 Dexterity Vest", 10, 20)]
+    shop = GildedRose.new(vest)
     it "dexterity vest quality that starts at 10 is 9 after 1 day, if sell-by date has not passed" do
-      vest = [Item.new(name = "+5 Dexterity Vest", sell_in = 10, quality = 10)]
-      shop = GildedRose.new(vest)
       expect{ shop.update_quality }.to change { vest[0].quality }.by(-1)
     end
 
     it "dexterity vest quality decreases by 2 after 1 day, if sell-by date has passed" do
-      vest = [Item.new(name = "+5 Dexterity Vest", sell_in = 10, quality = 20)]
-      shop = GildedRose.new(vest)
-      10.times { shop.update_quality }
+      9.times { shop.update_quality }
       expect{ shop.update_quality }.to change { vest[0].quality }.by(-2)
     end
   end
 
   context 'when brie ages, the quality increases' do
+    brie = [Item.new("Aged Brie", 1, 20)]
+    shop = GildedRose.new(brie)
     it "increases in quality by 1 each day until the sell-by date" do
-      brie = [Item.new(name = "Aged Brie", sell_in = 10, quality = 20)]
-      shop = GildedRose.new(brie)
       expect{ shop.update_quality }.to change { brie[0].quality }.by 1
     end
 
     it "increases in quality by 2 each day after the sell-by date" do
-      brie = [Item.new(name = "Aged Brie", sell_in = 0, quality = 20)]
-      shop = GildedRose.new(brie)
       expect{ shop.update_quality }.to change { brie[0].quality }.by 2
     end
   end
 
   context 'when sulfuras ages, the quality does not change' do
     it "quality does not change after 1 day" do
-      sulfuras = [Item.new(name = "Sulfuras, Hand of Ragnaros", sell_in = 10, quality = 20)]
+      sulfuras = [Item.new("Sulfuras, Hand of Ragnaros", 10, 20)]
       shop = GildedRose.new(sulfuras)
       expect{ shop.update_quality }.to change { sulfuras[0].quality }.by 0
     end
@@ -48,7 +44,7 @@ describe GildedRose do
 
   context 'sulfuras does not have to be sold' do
     it "quality does not decrease past sell-by date" do
-      sulfuras = [Item.new(name = "Sulfuras, Hand of Ragnaros", sell_in = 10, quality = 20)]
+      sulfuras = [Item.new("Sulfuras, Hand of Ragnaros", 10, 20)]
       shop = GildedRose.new(sulfuras)
       15.times { shop.update_quality }
       expect{ shop.update_quality }.to change { sulfuras[0].quality }.by 0
@@ -56,37 +52,33 @@ describe GildedRose do
   end
 
   context 'when approaching (but not surpassing) sell-by date, quality of backstage pass increases' do
+    pass = [Item.new("Backstage passes to a TAFKAL80ETC concert", 11, 20)]
+    shop = GildedRose.new(pass)
     it "quality increases by 1 after 1 day, if there are > 10 days to go (not past sell-by date)" do
-      pass = [Item.new(name = "Backstage passes to a TAFKAL80ETC concert", sell_in = 11, quality = 20)]
-      shop = GildedRose.new(pass)
       expect{ shop.update_quality }.to change { pass[0].quality }.by 1
     end
 
     it "quality increases by 2 after 1 day, if there are 10-6 days to go (not past sell-by date)" do
-      pass = [Item.new(name = "Backstage passes to a TAFKAL80ETC concert", sell_in = 10, quality = 20)]
-      shop = GildedRose.new(pass)
       expect{ shop.update_quality }.to change { pass[0].quality }.by 2
     end
 
     it "quality increases by 3 after 1 day, if there are < 6 days to go (not past sell-by date)" do
-      pass = [Item.new(name = "Backstage passes to a TAFKAL80ETC concert", sell_in = 5, quality = 20)]
-      shop = GildedRose.new(pass)
+      5.times { shop.update_quality }
       expect{ shop.update_quality }.to change { pass[0].quality }.by 3
     end
 
     it "quality is 0 past sell-by date" do
-      pass = [Item.new(name = "Backstage passes to a TAFKAL80ETC concert", sell_in = 2, quality = 20)]
-      shop = GildedRose.new(pass)
-      3.times { shop.update_quality }
+      5.times { shop.update_quality }
       expect( pass[0].quality).to eq(0)
     end
   end
 
   describe 'quality is always between 0 and 50' do
     it "does not increase the quality of Aged Brie beyond 50" do
-      brie = [Item.new(name = "Aged Brie", sell_in = 10, quality = 20)]
+      brie = [Item.new("Aged Brie", 10, 50)]
       shop = GildedRose.new(brie)
       35.times { shop.update_quality }
+      expect( brie[0].quality ).to eq 50
       expect{ shop.update_quality }.to change { brie[0].quality }.by 0
     end
 
