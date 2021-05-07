@@ -63,7 +63,7 @@ class GildedRose
   end
 
   def conjured_mana(item)
-    2.times { other_objects(item)    }
+    2.times { other_objects(item) }
   end
 
   def print_items(days = 1)
