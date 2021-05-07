@@ -1,4 +1,7 @@
 class GildedRose
+
+  ITEM_QUALITY_MAX = 50
+
   def initialize(items)
     @items = items
     @day = 0
@@ -9,7 +12,7 @@ class GildedRose
       next if item.name == "Sulfuras, Hand of Ragnaros"
 
       item.sell_in -= 1
-      next if item.quality >= 50
+      next if item.quality >= ITEM_QUALITY_MAX
       case item.name
       when "Aged Brie" then aged_brie(item)
       when "Backstage passes to a TAFKAL80ETC concert" then backstage_pass(item)
