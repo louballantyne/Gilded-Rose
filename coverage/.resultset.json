@@ -173,6 +173,8 @@
         1,
         null,
         1,
+        null,
+        1,
         1,
         null,
         1,
@@ -246,8 +248,9 @@
         4,
         null,
         null,
-        null,
-        null,
+        null
+      ],
+      "/Users/lou/Projects/Makers-Work/Week10/Gilded-Rose/lib/item.rb": [
         1,
         1,
         null,
@@ -328,6 +331,6 @@
         null
       ]
     },
-    "timestamp": 1620395835
+    "timestamp": 1620396480
   }
 }
