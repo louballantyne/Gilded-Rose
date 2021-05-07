@@ -1,4 +1,5 @@
 require 'gilded_rose'
+require 'helper_methods'
 
 describe GildedRose do
   describe "#update_quality" do
@@ -101,6 +102,24 @@ describe GildedRose do
       expect{ shop.update_quality }.to change { cake[0].quality }.by(-4)
     end
   end
+
+  context 'it prints out a list of items available' do
+    it 'prints out a list of items with name, sellIn and quality' do
+      items = items_method
+      shop = GildedRose.new(items)
+      expect { shop.print_items }.to output(/#{Regexp.quote(output_1)}/).to_stdout
+    end
+  end
+    # name, sellIn, quality
+    # +5 Dexterity Vest, 10, 20
+    # Aged Brie, 2, 0
+    # Elixir of the Mongoose, 5, 7
+    # Sulfuras, Hand of Ragnaros, 0, 80
+    # Sulfuras, Hand of Ragnaros, -1, 80
+    # Backstage passes to a TAFKAL80ETC concert, 15, 20
+    # Backstage passes to a TAFKAL80ETC concert, 10, 49
+    # Backstage passes to a TAFKAL80ETC concert, 5, 49
+    # Conjured Mana Cake, 3, 6)
 end
 
 # example output:

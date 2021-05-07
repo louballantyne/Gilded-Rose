@@ -50,6 +50,14 @@ class GildedRose
   def conjured_mana(item)
     2.times { other_objects(item) }
   end
+
+  def print_items
+    puts "----------------------"
+    puts "name, sellIn, quality"
+    @items.each do |item|
+      puts item
+    end
+  end
 end
 
 class Item
