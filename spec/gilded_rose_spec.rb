@@ -104,22 +104,15 @@ describe GildedRose do
   end
 
   context 'it prints out a list of items available' do
+    items = items_method
+    shop = GildedRose.new(items)
     it 'prints out a list of items with name, sellIn and quality' do
-      items = items_method
-      shop = GildedRose.new(items)
       expect { shop.print_items }.to output(/#{Regexp.quote(output_1)}/).to_stdout
     end
+    it 'allows the user to specify a number of days to print' do
+      expect { shop.print_items(3) }.to output(/#{Regexp.quote(output_2)}/).to_stdout
+    end
   end
-    # name, sellIn, quality
-    # +5 Dexterity Vest, 10, 20
-    # Aged Brie, 2, 0
-    # Elixir of the Mongoose, 5, 7
-    # Sulfuras, Hand of Ragnaros, 0, 80
-    # Sulfuras, Hand of Ragnaros, -1, 80
-    # Backstage passes to a TAFKAL80ETC concert, 15, 20
-    # Backstage passes to a TAFKAL80ETC concert, 10, 49
-    # Backstage passes to a TAFKAL80ETC concert, 5, 49
-    # Conjured Mana Cake, 3, 6)
 end
 
 # example output:
@@ -145,7 +138,7 @@ end
 # Backstage passes to a TAFKAL80ETC concert, 14, 21
 # Backstage passes to a TAFKAL80ETC concert, 9, 50
 # Backstage passes to a TAFKAL80ETC concert, 4, 50
-# Conjured Mana Cake, 2, 5
+# Conjured Mana Cake, 2, 4
 #
 # -------- day 2 --------
 # name, sellIn, quality
@@ -157,7 +150,7 @@ end
 # Backstage passes to a TAFKAL80ETC concert, 13, 22
 # Backstage passes to a TAFKAL80ETC concert, 8, 50
 # Backstage passes to a TAFKAL80ETC concert, 3, 50
-# Conjured Mana Cake, 1, 4
+# Conjured Mana Cake, 1, 2
 #
 # -------- day 3 --------
 # name, sellIn, quality
@@ -169,16 +162,5 @@ end
 # Backstage passes to a TAFKAL80ETC concert, 12, 23
 # Backstage passes to a TAFKAL80ETC concert, 7, 50
 # Backstage passes to a TAFKAL80ETC concert, 2, 50
-# Conjured Mana Cake, 0, 3
+# Conjured Mana Cake, 0, 0
 #
-# -------- day 4 --------
-# name, sellIn, quality
-# +5 Dexterity Vest, 6, 16
-# Aged Brie, -2, 6
-# Elixir of the Mongoose, 1, 3
-# Sulfuras, Hand of Ragnaros, 0, 80
-# Sulfuras, Hand of Ragnaros, -1, 80
-# Backstage passes to a TAFKAL80ETC concert, 11, 24
-# Backstage passes to a TAFKAL80ETC concert, 6, 50
-# Backstage passes to a TAFKAL80ETC concert, 1, 50
-# Conjured Mana Cake, -1, 1
