@@ -29,7 +29,7 @@ class GildedRose
   end
 
   def backstage_pass(item)
-    return if item.quality <= 0
+    return if item_quality_limit?(item)
     if item.sell_in >= 10
       item.quality += 1
     elsif item.sell_in >= 6
@@ -42,8 +42,12 @@ class GildedRose
     item.quality = 50 if item.quality > 50
   end
 
+  def item_quality_limit?(item)
+    item.quality <= 0
+  end
+
   def other_objects(item)
-    return if item.quality <= 0
+    return if item_quality_limit?(item)
     item.quality = if item.sell_in >= 0
                      item.quality - 1
                    else
@@ -53,7 +57,6 @@ class GildedRose
 
   def conjured_mana(item)
     2.times { other_objects(item)    }
-
   end
 
   def print_items(days = 1)

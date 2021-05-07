@@ -55,10 +55,16 @@ Simplecov reports 100% test coverage.
 Feel free to change variables within texttest_fixture to obtain different results. For example:
 
 ```ruby
-Item.new(name="A pretty parrot", sell_in=10, quality=20) # creates a new object called parrot
-days = 7 # would show what would happen over 7 days
+items = [Item.new(name="A pretty parrot", sell_in=10, quality=20)] # creates an array containing a new object called parrot
+shop = GildedRose.new(items)
+shop.print_items(7) # prints the way items change over 7 days
+shop.update_quality # moves all items on in quality and sell-by date, by one day
 ```
 
 ## About this project
 
-I began this project by testing. I created tests for all of the cases described in the information at the top of the README.
+I began this project by testing. I created tests for all of the cases described in the information at the top of the README. I ensured that I understood the code by running the pre-given file, texttest_fixture.rb.
+
+Having created tests for the pre-existing code, I deleted the 'update_quality' method and started again. I began by determining how many 'cases' there were. In fact, there were really only 4, so I decided to utilise a switch statement, in combination with a few other checks for special conditions. I created separate methods for each of the cases, except for "Sulfuras". For "Sulfuras", I just used 'next' because it did approach sell-by date or degrade in quality.
+
+In addition to these special cases, I needed to ensure that item quality did not exceed 50, or become negative. I initially
