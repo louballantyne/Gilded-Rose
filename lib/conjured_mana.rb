@@ -1,3 +1,3 @@
-require_relative 'item_base'
-class ConjuredMana < ItemBase
+require_relative 'conjured'
+class ConjuredMana < Conjured
 end

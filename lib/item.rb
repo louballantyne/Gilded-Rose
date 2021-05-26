@@ -4,6 +4,7 @@ class Item < ItemBase
 
   def self.new(name, sell_in, quality)
     case name
+    when "Sulfuras, Hand of Ragnaros" then Sulfuras.new(name, sell_in, quality)
     when "Aged Brie" then AgedBrie.new(name, sell_in, quality)
     when "Backstage passes to a TAFKAL80ETC concert" then BackstagePass.new(name, sell_in, quality)
     when "Conjured Mana Cake" then ConjuredMana.new(name, sell_in, quality)
