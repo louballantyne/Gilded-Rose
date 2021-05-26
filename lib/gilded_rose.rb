@@ -1,4 +1,9 @@
 require_relative 'item'
+require_relative 'item_base'
+require_relative 'aged_brie'
+require_relative 'backstage_pass'
+require_relative 'conjured_mana'
+require_relative 'conjured'
 
 class GildedRose
 

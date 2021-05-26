@@ -1,0 +1,2 @@
+class AgedBrie < ItemBase
+end
